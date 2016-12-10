@@ -30,7 +30,7 @@ class UI:
     def capture_input(self, mod = ""):
         if not mod == "":
             mod = "(%s)" % mod
-        return raw_input("\n%s>>> " % mod)
+        return raw_input("\n%s>>> " % mod).strip()
     
     def print_msg(self, msg):
         print "\t\033[32m[+] %s\033[00m" % msg

