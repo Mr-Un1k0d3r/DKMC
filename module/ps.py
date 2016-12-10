@@ -2,7 +2,6 @@ from module import ModuleObject
 import base64
 import os
 import time
-import re
 import gzip
 import tempfile
 
