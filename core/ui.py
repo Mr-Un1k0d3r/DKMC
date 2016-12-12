@@ -37,3 +37,6 @@ class UI:
         
     def print_error(self, error):
         print "\033[91m[-] >>> %s\033[00m" % error
+        
+    def print_debug(self, msg):
+        print "\033[36m[DEBUG] >>> %s\033[00m" % msg
