@@ -20,22 +20,26 @@ if __name__ == "__main__":
     menu = MenuUI()
     
     while not exit_loop:
-        ui.banner()
-        choice = ui.show_menu(options, error)
-        error = ""
-        if menu.is_an_option(choice):
-            mod = None
-            if choice == "exit":
-                exit(0)
-            if choice == "gen":
-                mod = GenModule(ui)
-            if choice == "web":
-                mod = WebModule(ui)
-            if choice == "ps":
-                mod = PsModule(ui)
-            if choice == "sc":
-                mod = ShellcodeModule(ui)
-            mod.show_menu()
-        else:
-            error = "%s is not a valid option" % choice
-        
+	try:
+	        ui.banner()
+        	choice = ui.show_menu(options, error)
+	        error = ""
+        	if menu.is_an_option(choice):
+	            mod = None
+        	    if choice == "exit":
+                	exit(0)
+	            if choice == "gen":
+        	        mod = GenModule(ui)
+	            if choice == "web":
+        	        mod = WebModule(ui)
+	            if choice == "ps":
+        	        mod = PsModule(ui)
+	            if choice == "sc":
+        	        mod = ShellcodeModule(ui)
+            		mod.show_menu()
+        	else:
+            		error = "%s is not a valid option" % choice
+	except KeyboardInterrupt:
+		print ""
+		ui.print_error("Exiting")
+		exit(0)
