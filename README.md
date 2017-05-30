@@ -1,5 +1,5 @@
 # Don't Kill My Cat
-Tool that generate obfuscated shellcode that is stored inside of polyglot images. The image is 100% valid image and also 100% valid shellcode. The idea is too avoid sandbox analysis since it's a simple "legit" image. For now the tool rely on PowerShell the execute the final shellcode payload.
+Tool that generate obfuscated shellcode that is stored inside of polyglot images. The image is 100% valid and also 100% valid shellcode. The idea is too avoid sandbox analysis since it's a simple "legit" image. For now the tool rely on PowerShell the execute the final shellcode payload.
 
 # Basic Flow
 * Generate shellcode (meterpreter / Beacon)
