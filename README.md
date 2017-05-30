@@ -1,5 +1,7 @@
 # Don't Kill My Cat (DKMC)
-Tool that generate obfuscated shellcode that is stored inside of polyglot images. The image is 100% valid and also 100% valid shellcode. The idea is too avoid sandbox analysis since it's a simple "legit" image. For now the tool rely on PowerShell the execute the final shellcode payload.
+Don't kill my cat is a tool that generates obfuscated shellcode that is stored inside of polyglot images. The image is 100% valid and also 100% valid shellcode. The idea is to avoid sandbox analysis since it's a simple "legit" image. For now the tool rely on PowerShell the execute the final shellcode payload.
+
+Why it's called don't kill my cat? Since I suck at finding names for tools, I decided to rely on the fact that the default BMP image is a cat to name the tool. 
 
 Presentation on how it works internally can be found here: https://github.com/Mr-Un1k0d3r/DKMC/blob/master/DKMC%20presentation%202017.pdf
 
@@ -71,6 +73,9 @@ Built-in Web Server to deliver the image
 ```
 
 Final step require you to run the PowerShell oneliner on the victim system.
+
+# TODO
+Support more file format.
 
 # Credit
 Mr.Un1k0d3r RingZer0 Team 2016
