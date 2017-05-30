@@ -14,7 +14,7 @@ Presentation on how it works internally can be found here: https://github.com/Mr
 # Usage
 Launching DKMC
 ```
-python dkmc.py
+$ python dkmc.py
 
 
 DKMC - Don't kill my cat
