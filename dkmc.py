@@ -36,7 +36,7 @@ if __name__ == "__main__":
         	        mod = PsModule(ui)
 	            if choice == "sc":
         	        mod = ShellcodeModule(ui)
-            		mod.show_menu()
+                    mod.show_menu()
         	else:
             		error = "%s is not a valid option" % choice
 	except KeyboardInterrupt:
