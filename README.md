@@ -15,6 +15,25 @@ Presentation on how it works internally can be found here: https://github.com/Mr
 Launching DKMC
 ```
 python dkmc.py
+
+
+DKMC - Don't kill my cat
+         Evasion tool - Mr.Un1k0d3r RingZer0 Team
+     |\      _,,,---,,_
+    /,`.-'`'    -.  ;-;;,_
+   |,4-  ) )-,_..;\ (  `'-'
+  '---''(_/--'  `-'\_)    The sleepy cat
+
+----------------------------------------------------
+Select an option:
+
+        [*] (gen)       Generate a malicious BMP image
+        [*] (web)       Start a web server and deliver malicious image
+        [*] (ps)        Generate Powershell payload
+        [*] (sc)        Generate shellcode from raw file
+        [*] (exit)      Quit the application
+
+>>>
 ```
 
 Generate shellcode from a raw file
