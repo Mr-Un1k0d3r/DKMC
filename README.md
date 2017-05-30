@@ -1,4 +1,4 @@
-# Don't Kill My Cat
+# Don't Kill My Cat (DKMC)
 Tool that generate obfuscated shellcode that is stored inside of polyglot images. The image is 100% valid and also 100% valid shellcode. The idea is too avoid sandbox analysis since it's a simple "legit" image. For now the tool rely on PowerShell the execute the final shellcode payload.
 
 # Basic Flow
@@ -8,6 +8,7 @@ Tool that generate obfuscated shellcode that is stored inside of polyglot images
 * Get your shell
 
 # Usage
+Launching DKMC
 ```
 python dkmc.py
 ```
