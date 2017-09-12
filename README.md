@@ -13,7 +13,6 @@ Presentation on how it works internally can be found here: https://github.com/Mr
 
 # Installation
 
-Inside the DKMC
 ```
 $ git clone https://github.com/Mr-Un1k0d3r/DKMC 
 $ cd DKMC
