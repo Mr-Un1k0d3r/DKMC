@@ -11,6 +11,13 @@ Presentation on how it works internally can be found here: https://github.com/Mr
 * PowerShell download the image and execute the image as shellcode
 * Get your shell
 
+# Installation
+
+Inside the DKMC
+```
+$ mkdir output
+```
+
 # Usage
 Launching DKMC
 ```
