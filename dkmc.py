@@ -1,3 +1,4 @@
+import os
 from core.ui import UI
 from core.menu import MenuUI
 from module.gen import GenModule
@@ -6,6 +7,9 @@ from module.ps import PsModule
 from module.shellcode import ShellcodeModule
 
 if __name__ == "__main__":
+
+    if not os.path.exists("output/"):
+	os.makedirs("output/")
 
     options = []
     options.append(("gen", "Generate a malicious BMP image"))
