@@ -63,6 +63,7 @@ class GenModule(ModuleObject):
         return header,data
     
     def gen_shellcode(self, shellcode):
+        shellcode = shellcode.replace("\r", "").replace("\n", "")
         try:
             key = self.gen_key()
             self.ui.print_msg("Generating obfuscation key 0x%s" % key.encode("hex"))
