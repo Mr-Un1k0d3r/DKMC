@@ -70,7 +70,7 @@ class GenModule(ModuleObject):
             shellcode = self.pad_shellcode(shellcode)
             magic = self.gen_magic()
             self.ui.print_msg("Generating magic bytes %s" % hex(magic))
-            shellcode = hex(magic)[2:].decode("hex") + shellcode
+            shellcode = hex(magic)[2:10].decode("hex") + shellcode
             shellcode = self.xor_payload(shellcode, key)
             size = len(shellcode)
             shellcode = self.set_decoder(hex(magic)[2:10].decode("hex"), (size - 4)) + shellcode
