@@ -73,9 +73,9 @@ class GenModule(ModuleObject):
             shellcode = hex(magic)[2:].decode("hex") + shellcode
             shellcode = self.xor_payload(shellcode, key)
             size = len(shellcode)
-            shellcode = self.set_decoder(hex(magic)[2:].decode("hex"), (size - 4)) + shellcode
+            shellcode = self.set_decoder(hex(magic)[2:10].decode("hex"), (size - 4)) + shellcode
             for i in range(1, 5):
-                shellcode = shellcode.replace("[RAND" + str(i) + "]", self.gen_pop(hex(self.gen_magic())[2:].decode("hex")))
+                shellcode = shellcode.replace("[RAND" + str(i) + "]", self.gen_pop(hex(self.gen_magic())[2:10].decode("hex")))
             self.ui.print_msg("Final shellcode length is %s (%d) bytes" % (hex(len(shellcode)), len(shellcode)))
             if self.is_debug():
                 print
@@ -88,7 +88,7 @@ class GenModule(ModuleObject):
         xor_key = random.randrange(0x11111111, 0x55555555)
         if not hex(xor_key).find("00") == -1:
             self.gen_key()
-        return hex(xor_key)[2:].decode("hex")
+        return hex(xor_key)[2:10].decode("hex")
     
     def gen_magic(self):
         return random.randrange(0x11111111, 0xffffffff)
