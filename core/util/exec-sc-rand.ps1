@@ -1,5 +1,3 @@
-Set-StrictMode -Version 2
-
 $var1 = @'
 function var2 {
         Param ($var_module, $var_procedure)
