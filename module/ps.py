@@ -29,7 +29,7 @@ class PsModule(ModuleObject):
 	letter = random.SystemRandom().choice(string.ascii_uppercase + string.ascii_lowercase)
 	letter2 = random.SystemRandom().choice(string.ascii_uppercase + string.ascii_lowercase)
         stage1 = self.read_file(path).replace(letter, "!")
-	stage1 = self.read_file(path).replace(letter2, "$")
+	stage1 = stage1.replace(letter2, "$")
         self.delete_file(path)
 	
         stage2 = self.load_file("core/util/base64.ps1").replace("[BASE64]", stage1)
