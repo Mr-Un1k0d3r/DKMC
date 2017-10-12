@@ -66,4 +66,4 @@ class PsModule(ModuleObject):
         os.unlink(path)
         
     def read_file(self, path):
-return base64.b64encode(open(path, "rb").read())
+	return base64.b64encode(open(path, "rb").read())
