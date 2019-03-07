@@ -3,6 +3,7 @@ import struct
 import random
 import time
 import os
+import re
 
 class GenModule(ModuleObject):
     
@@ -11,6 +12,7 @@ class GenModule(ModuleObject):
         self.ui = ui
         self.vars = {}
         self.vars["shellcode"] = ["", "Shellcode payload using \\x41\\x41 format"]
+        self.vars["shellcode-path"] = ["", "Path to a raw shellcode file"]
         self.vars["source"] = ["sample/default.bmp", "Image source file path"]
         self.vars["output"] = ["output/output-%d.bmp" % time.time(), "Output file path"]
         self.vars["debug"] = ["false", "Show debug output. More verbose"]
@@ -36,7 +38,15 @@ class GenModule(ModuleObject):
             width = struct.unpack("<i", self.image["width"])[0]
             height = struct.unpack("<i", self.image["height"])[0]
             self.ui.print_msg("Image size is %d x %d" % (width, height))
-            shellcode = self.gen_shellcode(self.vars["shellcode"][0])
+            shellcode = ""
+            if not self.vars["shellcode-path"][0] == "":
+                try:
+                    shellcode = self.gen_shellcode("\\x" + "\\x".join(re.findall("..", open(self.vars["shellcode-path"][0], "rb").read().encode("hex"))))
+                except:
+                    self.ui.print_error("shellcode-path not found")
+            else:
+                shellcode = self.gen_shellcode(self.vars["shellcode"][0])
+            
             if shellcode:
                 new_header = self.edit_bmp_header(len(self.image["header"]) + len(self.image["data"]), len(shellcode))
                 self.image["header"] = new_header + self.image["header"][7:]
