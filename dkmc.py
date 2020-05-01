@@ -9,7 +9,7 @@ from module.shellcode import ShellcodeModule
 if __name__ == "__main__":
 
     if not os.path.exists("output/"):
-	os.makedirs("output/")
+        os.makedirs("output/")
 
     options = []
     options.append(("gen", "Generate a malicious BMP image"))
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     menu = MenuUI()
     
     while not exit_loop:
-	try:
+        try:
 	        ui.banner()
         	choice = ui.show_menu(options, error)
 	        error = ""
