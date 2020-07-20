@@ -63,7 +63,7 @@ class GenModule(ModuleObject):
             data = open(path + "/" + self.vars["source"][0], "rb").read()
         
         if data == "":
-            self.print_error("%s not found" % self.vars["source"][0])
+            self.ui.print_error("%s not found" % self.vars["source"][0])
             return False
         return data
     
